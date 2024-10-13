@@ -4,11 +4,16 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "webpack"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@twa-dev/sdk": "^7.10.1"
+  },
   "devDependencies": {
-    "typescript": "^5.5.3"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4"
   },
   "private": true
 }
