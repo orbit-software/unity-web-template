@@ -1,10 +1,13 @@
-﻿import {ICryptoSteamSDK} from "./types";
+﻿import {ICryptoSteamSDK, ICryptoSteamSDKLocal} from "./types";
 import {debug, info} from "../utils/logger";
 import {sdkName} from "../consts";
 import WebApp from "@twa-dev/sdk";
+import {initLaunchAd} from "./ad";
 
 export function getAndInitSDK() {
     info(`start '${sdkName}'`)
+
+    initLocalSDK();
 
     const sdk = getSDK()
 
@@ -33,4 +36,11 @@ export function getAndInitSDK() {
 
 export function getSDK() {
     return ((window as any).CryptoSteamSDK as ICryptoSteamSDK);
+}
+
+export function initLocalSDK() {
+    return (window as any).CryptoSteamSDKLocal = {
+        isAdRunning: () => { return false; },
+        runAd: () => { initLaunchAd() }
+    }  as ICryptoSteamSDKLocal;
 }

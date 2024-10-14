@@ -17,4 +17,11 @@ export interface ICryptoSteamSDK {
     getProfile: () => { profile: ICryptoSteamSDKProfile };
     trackLaunch: () => void;
     getVersion: () => string;
+    isAdRunning: () => boolean
+    runAd: () => void
+}
+
+export interface ICryptoSteamSDKLocal {
+    isAdRunning: () => boolean
+    runAd: () => void
 }

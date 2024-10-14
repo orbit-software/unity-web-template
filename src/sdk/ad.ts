@@ -1,4 +1,6 @@
-﻿export function initLaunchAd() {
+﻿
+
+export function initLaunchAd() {
 
     const div = document.querySelector('.ad')
     div!.classList.add('visible')
@@ -23,6 +25,4 @@
             clearInterval(interval)
         }
     }, 1000)
-
-
 }
