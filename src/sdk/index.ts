@@ -1,46 +1,24 @@
-﻿import {ICryptoSteamSDK, ICryptoSteamSDKLocal} from "./types";
-import {debug, info} from "../utils/logger";
+﻿import CryptoSteamSDK from 'crypto-steam-sdk';
+
+import {ICryptoSteamSDKLocal} from "./types";
+import {info} from "../utils/logger";
 import {sdkName} from "../consts";
-import WebApp from "@twa-dev/sdk";
 import {initLaunchAd} from "./ad";
 
-export function getAndInitSDK() {
+export async function getAndInitSDK() {
     info(`start '${sdkName}'`)
 
     initLocalSDK();
 
-    const sdk = getSDK()
+    await CryptoSteamSDK.initialize();
 
-    if(sdk === null) {
-        throw new Error(`SDK ${sdkName} not found`);
-    }
-
-    // init telegram
-    debug(`init telegram WebApp...`)
-    WebApp.ready();
-    WebApp.expand();
-
-    if(WebApp.initData === '' || WebApp.initData === null) {
-        throw new Error(`telegram WebApp.initData not found`);
-    }
-
-    // todo ?
-    const gameId = "1"
-
-    debug(`init SDK...`)
-    sdk.initialize({id: gameId, initData: WebApp.initData})
-
-    return sdk
+    return CryptoSteamSDK
 }
 
-
-export function getSDK() {
-    return ((window as any).CryptoSteamSDK as ICryptoSteamSDK);
-}
 
 export function initLocalSDK() {
     return (window as any).CryptoSteamSDKLocal = {
         isAdRunning: () => { return false; },
-        runAd: () => { initLaunchAd() }
+        runAd: () => {initLaunchAd()}
     }  as ICryptoSteamSDKLocal;
 }
