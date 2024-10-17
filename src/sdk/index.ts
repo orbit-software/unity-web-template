@@ -1,12 +1,9 @@
 ﻿import CryptoSteamSDK from 'crypto-steam-sdk';
-
-import {ICryptoSteamSDKLocal} from "./types";
 import {info} from "../utils/logger";
-import {sdkName} from "../consts";
 import {initLaunchAd} from "./ad";
 
 export async function getAndInitSDK() {
-    info(`start '${sdkName}'`)
+    info(`start 'CryptoSteamSDK'`)
 
     initLocalSDK();
 
@@ -16,9 +13,16 @@ export async function getAndInitSDK() {
 }
 
 
+// todo temp
 export function initLocalSDK() {
     return (window as any).CryptoSteamSDKLocal = {
         isAdRunning: () => { return false; },
         runAd: () => {initLaunchAd()}
     }  as ICryptoSteamSDKLocal;
+}
+
+// todo temp
+export interface ICryptoSteamSDKLocal {
+    isAdRunning: () => boolean
+    runAd: () => void
 }

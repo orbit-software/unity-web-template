@@ -9,6 +9,8 @@ async function main() {
         // log configs
         debug(`version ${sdk.getVersion()}`)
         debug('config:\n' + JSON.stringify(sdk.getConfig(), null, 4))
+        debug(`profile:\n ${JSON.stringify(await sdk.getProfile(), null, 4)}`);
+        debug(`isAdEnabled: ${await sdk.isAdEnabled()}`)
 
         // init launch ad
         if (await sdk.isAdEnabled()) {
