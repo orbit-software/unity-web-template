@@ -4,7 +4,7 @@ import {initLaunchAd} from "./sdk/ad";
 
 async function main() {
     try {
-        const sdk = await getAndInitSDK()
+        const sdk = getAndInitSDK()
 
         // log configs
         debug(`version ${sdk.getVersion()}`)
