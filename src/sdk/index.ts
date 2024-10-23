@@ -1,6 +1,6 @@
 ﻿import CryptoSteamSDK from 'crypto-steam-sdk';
-import {debug, info} from "../utils/logger";
-import {initLaunchAd} from "./ad";
+import {info} from "../utils/logger";
+import {initLaunchAd, isAdActive} from "./ad";
 
 export function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)
@@ -12,17 +12,19 @@ export function getAndInitSDK() {
     return CryptoSteamSDK
 }
 
-
-// todo
 export function initEmuSDK() {
     return (window as any).CryptoSteamEmuSDK = {
-        isAdRunning: () => { debug('emu isAdRunning'); return false; },
-        runAd: () => {debug('emu runAd'); initLaunchAd()},
+        isAdRunning: () => {return isAdActive() },
+        requestAd: async () => {
+            const data = await CryptoSteamSDK.requestAd()
+            if(data && data.is_available && data.url && data.durationS && data.mediaType) {
+                initLaunchAd(data)
+            }
+        },
     }  as CryptoSteamEmuSDK;
 }
 
-// todo temp
+
 export interface CryptoSteamEmuSDK {
     isAdRunning: () => boolean
-    runAd: () => void
 }

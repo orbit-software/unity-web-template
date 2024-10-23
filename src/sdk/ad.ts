@@ -1,11 +1,23 @@
-﻿export function initLaunchAd() {
+﻿import {CryptoSteamSDKAd} from "crypto-steam-sdk";
+
+
+export function isAdActive() {
+    const div = document.querySelector('.ad')
+    return div!.classList.contains('visible')
+}
+
+export function initLaunchAd(data: CryptoSteamSDKAd) {
+
+    const video = document.querySelector('video');
+    video!.src = data.url as string;
+    video!.play();
 
     const div = document.querySelector('.ad')
     div!.classList.add('visible')
 
-    const time = document.querySelector('.time')
+    let timer = data.durationS as number;
 
-    let timer = 5
+    const time = document.querySelector('.time')
 
     time!.addEventListener('click', () => {
         if(timer <= 0) {
