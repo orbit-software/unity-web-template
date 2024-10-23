@@ -100,9 +100,18 @@ body {
 .ad video {
     width: 100vw;
 }
+.ad img {
+    width: 100vw;
+}
 
-.ad.visible {
+.visible.visible {
     display: block;
     width: 100vw;
     height: 100vh;
+}
+.ad video {
+    display: none;
+}
+.ad img {
+    display: none;
 }

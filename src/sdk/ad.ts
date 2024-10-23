@@ -1,4 +1,4 @@
-﻿import {CryptoSteamSDKAd} from "crypto-steam-sdk";
+﻿import {CryptoSteamSDKAd, CryptoSteamSDKAdMediaType} from "crypto-steam-sdk";
 
 
 export function isAdActive() {
@@ -8,9 +8,21 @@ export function isAdActive() {
 
 export function initLaunchAd(data: CryptoSteamSDKAd) {
 
-    const video = document.querySelector('video');
-    video!.src = data.url as string;
-    video!.play();
+    const video = document.querySelector('.ad video') as HTMLVideoElement;
+    const image = document.querySelector('.ad img') as HTMLImageElement;
+
+    video!.classList.remove('visible')
+    image!.classList.remove('visible')
+
+    if(data.mediaType === CryptoSteamSDKAdMediaType.Video) {
+        video!.classList.add('visible')
+        video!.src = data.url as string;
+        video!.play();
+    }
+    else {
+        image!.src = data.url as string;
+        image!.classList.add('visible')
+    }
 
     const div = document.querySelector('.ad')
     div!.classList.add('visible')
