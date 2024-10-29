@@ -16,8 +16,9 @@ export function initEmuSDK() {
     return (window as any).CryptoSteamEmuSDK = {
         isAdRunning: () => {return isAdActive() },
         requestAd: async () => {
+
             const data = await CryptoSteamSDK.requestAd()
-            if(data && data.is_available && data.url && data.durationS && data.mediaType) {
+            if(data && data.is_available) {
                 initLaunchAd(data)
             }
         },

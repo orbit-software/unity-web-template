@@ -1,7 +1,7 @@
 import {getAndInitSDK} from "./sdk";
 import {debug, fatal} from "./utils/logger";
 import {initLaunchAd} from "./sdk/ad";
-import CryptoSteamSDK from "crypto-steam-sdk";
+import CryptoSteamSDK, {OverlayConfig} from "crypto-steam-sdk";
 
 async function main() {
     try {
@@ -16,14 +16,18 @@ async function main() {
         // init launch ad
         if (await sdk.isAdEnabled()) {
 
+            const data = await CryptoSteamSDK.requestAd()
 
+            if(data && data.is_available) {
+                initLaunchAd(data)
+            }
         }
 
-        const data = await CryptoSteamSDK.requestAd()
+        sdk.initializeOverlay({
+            onOverlayOpen: () => { debug("overlay open") },
+            onOverlayClose: () => { debug("overlay close") }
+        } as OverlayConfig)
 
-        if(data && data.is_available && data.url && data.durationS && data.mediaType) {
-            initLaunchAd(data)
-        }
         // init profile ??
 
         // init achievements ??
