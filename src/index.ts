@@ -26,19 +26,19 @@ async function main() {
             onOverlayClose: () => { debug("overlay close") }
         } as OverlayConfig)
 
-        // orientation
-        initOrientationCheck()
-
         // ad
         if (await sdk.isAdEnabled()) {
             const data = await CryptoSteamSDK.requestAd()
             if(data && data.is_available) {
-                initLaunchAd(data)
+                await initLaunchAd(data)
             }
         }
 
         // load game (unity)
-        loadUnity()
+        await loadUnity()
+
+        // orientation
+        initOrientationCheck()
     }
     catch(ex) {
         fatal(ex)

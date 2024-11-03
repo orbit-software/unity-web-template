@@ -11,32 +11,35 @@ export function initMobileMeta() {
     }
 }
 
-export function loadUnity() {
+export function loadUnity() : Promise<void> {
+    return new Promise(((resolve, reject) => {
 
-    const unity = (window as any) as UnityScripts
+        const unity = (window as any) as UnityScripts
 
-    const container = document.querySelector("#unity-container") as HTMLElement;
-    const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
-    const loadingBar = document.querySelector("#unity-loading-bar") as HTMLElement;
-    const progressBarFull = document.querySelector("#unity-progress-bar-full") as HTMLElement;
+        const container = document.querySelector("#unity-container") as HTMLElement;
+        const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
+        const loadingBar = document.querySelector("#unity-loading-bar") as HTMLElement;
+        const progressBarFull = document.querySelector("#unity-progress-bar-full") as HTMLElement;
 
-    loadingBar.style.display = "block";
+        loadingBar.style.display = "block";
 
-    const script = document.createElement("script");
-    script.src = unity.unityConfig.loaderUrl;
-    script.onload = () => {
+        const script = document.createElement("script");
+        script.src = unity.unityConfig.loaderUrl;
+        script.onload = () => {
 
-        unity.createUnityInstance(canvas, (window as any).unityConfig,
-            (progress:number) => progressBarFull.style.width = 100 * progress + "%")
-        .then((unityInstance) => {
-            loadingBar.style.display = "none";
-        }).catch((message) => {
-            fatal(message);
-            alert(message);
-        });
-    };
-    document.body.appendChild(script);
+            unity.createUnityInstance(canvas, (window as any).unityConfig,
+                (progress:number) => progressBarFull.style.width = 100 * progress + "%")
+                .then((unityInstance) => {
+                    resolve()
+                    loadingBar.style.display = "none";
+                }).catch((message) => {
+                    fatal(message);
+                    reject()
+                });
+        };
+        document.body.appendChild(script);
 
+    }));
 }
 
 
