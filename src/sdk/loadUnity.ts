@@ -1,4 +1,5 @@
-﻿import {fatal, info} from "./logger";
+﻿import {fatal, info} from "../utils/logger";
+import {startGameTimeTrack, stopGameTimeTrack} from "./gameTime";
 
 export function initMobileMeta() {
     info("init mobile meta tag")
@@ -30,9 +31,11 @@ export function loadUnity() : Promise<void> {
             unity.createUnityInstance(canvas, (window as any).unityConfig,
                 (progress:number) => progressBarFull.style.width = 100 * progress + "%")
                 .then((unityInstance) => {
+                    startGameTimeTrack()
                     resolve()
                     loadingBar.style.display = "none";
                 }).catch((message) => {
+                    stopGameTimeTrack()
                     fatal(message);
                     reject()
                 });

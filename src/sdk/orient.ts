@@ -1,6 +1,6 @@
-﻿import {info, log} from "./logger";
+﻿import {info} from "../utils/logger";
 
-let timeOut: any = false
+let timer: any
 
 export function initOrientationCheck() {
     info("init orientation check")
@@ -10,8 +10,8 @@ export function initOrientationCheck() {
 }
 
 function checkOrientation() {
-    if (timeOut) clearTimeout(timeOut);
-    timeOut = setInterval(() => {
+    if (timer) clearInterval(timer);
+    timer = setInterval(() => {
         const gifContainer = document.getElementById("orientation-gif-container") as HTMLElement;
         const gif = document.getElementById("orientation-gif") as HTMLElement;
 

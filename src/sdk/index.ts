@@ -1,6 +1,7 @@
 ﻿import CryptoSteamSDK from 'crypto-steam-sdk';
 import {info} from "../utils/logger";
 import {initLaunchAd, isAdActive} from "./ad";
+import WebApp from "@twa-dev/sdk";
 
 export function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)
@@ -11,9 +12,12 @@ export function getAndInitSDK() {
     return CryptoSteamSDK
 }
 
+
+
 export function initEmuSDK() {
     return (window as any).CryptoSteamEmuSDK = {
         isAdRunning: () => {return isAdActive() },
+        getStartParam: () => { WebApp.initDataUnsafe.start_param },
         requestAd: async () => {
 
             const data = await CryptoSteamSDK.requestAd()

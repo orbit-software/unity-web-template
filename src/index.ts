@@ -2,8 +2,8 @@ import {getAndInitSDK} from "./sdk";
 import {debug, fatal} from "./utils/logger";
 import {initLaunchAd} from "./sdk/ad";
 import CryptoSteamSDK, {OverlayConfig} from "crypto-steam-sdk";
-import {initOrientationCheck} from "./utils/orient";
-import {initMobileMeta, loadUnity} from "./utils/loadUnity";
+import {initOrientationCheck} from "./sdk/orient";
+import {initMobileMeta, loadUnity} from "./sdk/loadUnity";
 
 async function main() {
     try {
