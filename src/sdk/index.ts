@@ -6,7 +6,6 @@ export function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)
 
     initEmuSDK();
-
     CryptoSteamSDK.initialize();
 
     return CryptoSteamSDK

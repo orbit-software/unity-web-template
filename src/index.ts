@@ -2,9 +2,16 @@ import {getAndInitSDK} from "./sdk";
 import {debug, fatal} from "./utils/logger";
 import {initLaunchAd} from "./sdk/ad";
 import CryptoSteamSDK, {OverlayConfig} from "crypto-steam-sdk";
+import {initOrientationCheck} from "./utils/orient";
+import {initMobileMeta, loadUnity} from "./utils/loadUnity";
 
 async function main() {
     try {
+
+        // init base
+        initMobileMeta()
+
+        // init sdk
         const sdk = getAndInitSDK()
 
         // log configs
@@ -13,27 +20,25 @@ async function main() {
         debug(`profile:\n ${JSON.stringify(await sdk.getProfile(), null, 4)}`);
         debug(`isAdEnabled: ${await sdk.isAdEnabled()}`)
 
-        // init launch ad
-        if (await sdk.isAdEnabled()) {
-
-            const data = await CryptoSteamSDK.requestAd()
-
-            if(data && data.is_available) {
-                initLaunchAd(data)
-            }
-        }
-
+        // init sdk visual elements
         sdk.initializeOverlay({
             onOverlayOpen: () => { debug("overlay open") },
             onOverlayClose: () => { debug("overlay close") }
         } as OverlayConfig)
 
-        // init profile ??
+        // orientation
+        initOrientationCheck()
 
-        // init achievements ??
+        // ad
+        if (await sdk.isAdEnabled()) {
+            const data = await CryptoSteamSDK.requestAd()
+            if(data && data.is_available) {
+                initLaunchAd(data)
+            }
+        }
 
-        // init something else ???
-
+        // load game (unity)
+        loadUnity()
     }
     catch(ex) {
         fatal(ex)
