@@ -1,6 +1,6 @@
 ﻿import {info} from "../utils/logger";
 
-let timer: any
+let orientTimer: any
 
 export function initOrientationCheck() {
     info("init orientation check")
@@ -10,8 +10,8 @@ export function initOrientationCheck() {
 }
 
 function checkOrientation() {
-    if (timer) clearInterval(timer);
-    timer = setInterval(() => {
+    if (orientTimer) clearInterval(orientTimer);
+    orientTimer = setInterval(() => {
         const gifContainer = document.getElementById("orientation-gif-container") as HTMLElement;
         const gif = document.getElementById("orientation-gif") as HTMLElement;
 

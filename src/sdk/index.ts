@@ -17,7 +17,7 @@ export function getAndInitSDK() {
 export function initEmuSDK() {
     return (window as any).CryptoSteamEmuSDK = {
         isAdRunning: () => {return isAdActive() },
-        getStartParam: () => { WebApp.initDataUnsafe.start_param },
+        getStartParam: () => { return WebApp.initDataUnsafe.start_param },
         requestAd: async () => {
 
             const data = await CryptoSteamSDK.requestAd()
