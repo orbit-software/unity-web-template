@@ -16,7 +16,7 @@ async function main() {
 
         // log configs
         debug(`version ${sdk.getVersion()}`)
-        debug('config:\n' + JSON.stringify(sdk.getConfig(), null, 4))
+        debug('config:\n' + JSON.stringify(await sdk.getConfig(), null, 4))
         debug(`profile:\n ${JSON.stringify(await sdk.getProfile(), null, 4)}`);
         debug(`isAdEnabled: ${await sdk.isAdEnabled()}`)
 
@@ -37,8 +37,13 @@ async function main() {
         // load game (unity)
         await loadUnity()
 
+        const config = await sdk.getConfig()
+
         // orientation
-        initOrientationCheck()
+        if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
+        {
+            initOrientationCheck()
+        }
     }
     catch(ex) {
         fatal(ex)

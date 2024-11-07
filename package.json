@@ -1,14 +1,13 @@
 {
   "name": "unity_template",
-  "version": "1.0.6.1",
+  "version": "1.0.18",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack"
   },
   "dependencies": {
-    "crypto-steam-sdk": "^1.0.16",
-    "@twa-dev/sdk": "^7.10.1"
+    "crypto-steam-sdk": "^1.0.21"
   },
   "devDependencies": {
     "ts-loader": "^9.5.1",
