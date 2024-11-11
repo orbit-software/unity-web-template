@@ -8,51 +8,69 @@ export function isAdActive() {
 export function initLaunchAd(data: CryptoSteamSDKAd) : Promise<void> {
     return new Promise<void>((resolve, reject) => {
 
-        const video = document.querySelector('#sdk-ad video') as HTMLVideoElement;
-        const image = document.querySelector('#sdk-ad img') as HTMLImageElement;
-
-        video.classList.remove(classVis)
-        image.classList.remove(classVis)
-
-        if (data.mediaType === CryptoSteamSDKAdMediaType.Video) {
-            video.classList.add(classVis)
-            video.onload = onLoad;
-            video.src = data.url as string;
-            video.play();
-        }
-        else {
-            image.onload = onLoad
-            image.src = data.url as string;
-            image.classList.add(classVis)
-        }
-
         function onLoad() {
 
-            const div = document.querySelector('#sdk-ad') as HTMLElement
-            div.classList.add(classVis)
+            try {
 
-            let timer = data.durationS as number;
+                const div = document.querySelector('#sdk-ad') as HTMLElement
+                div.classList.add(classVis)
 
-            const time = document.querySelector('#sdk-ad .time') as HTMLElement
+                // @ts-ignore
+                let timer = Math.round(data.duration as number);
 
-            time.addEventListener('click', () => {
-                if (timer <= 0) {
-                    div!.classList.remove(classVis)
-                }
-            })
+                const time = document.querySelector('#sdk-ad .time') as HTMLElement
 
-            time.textContent = timer.toString()
+                time.addEventListener('click', () => {
+                    if (timer <= 0) {
+                        div.classList.remove(classVis)
+                    }
+                })
 
-            const interval = setInterval(() => {
-                timer -= 1
                 time.textContent = timer.toString()
-                if (timer <= 0) {
-                    time.textContent = '✕';
-                    clearInterval(interval)
-                }
-            }, 1000)
 
-            resolve()
+                const interval = setInterval(() => {
+                    timer -= 1
+                    time.textContent = timer.toString()
+                    if (timer <= 0) {
+                        time.textContent = '✕';
+                        clearInterval(interval)
+                    }
+                }, 1000)
+
+
+                resolve()
+
+            }
+            catch (e) {
+                console.error(e)
+                reject(e)
+            }
+        }
+
+        try {
+            const video = document.querySelector('#sdk-ad video') as HTMLVideoElement;
+            const image = document.querySelector('#sdk-ad img') as HTMLImageElement;
+
+            video.classList.remove(classVis)
+            image.classList.remove(classVis)
+
+            // @ts-ignore
+            if (data.media_type === CryptoSteamSDKAdMediaType.Video) {
+                video.classList.add(classVis)
+                video.onload = onLoad;
+                video.src = data.url as string;
+                video.play();
+                onLoad()
+            } else {
+                image.classList.add(classVis)
+                image.onload = onLoad
+                image.src = data.url as string;
+                onLoad()
+            }
+        }
+        catch (e) {
+            console.error(e)
+            reject(e)
         }
 
     })

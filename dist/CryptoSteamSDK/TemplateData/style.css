@@ -48,7 +48,7 @@ body {
 #sdk-ad {
     display: none;
     background-color: #111;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -92,8 +92,8 @@ body {
     width: 100vw;
 }
 
-.sdk-visible.sdk-visible {
-    display: block;
+.sdk-visible.sdk-visible.sdk-visible {
+    display: block !important;
     width: 100vw;
     height: 100vh;
 }
@@ -113,11 +113,11 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 1000;
     justify-content: center;
     align-items: center;
     background-color: #221d1f;
 }
+
 #orientation-gif {
     max-width: 150px;
     max-height: 150px;
