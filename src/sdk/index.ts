@@ -19,11 +19,10 @@ export function initEmuSDK() {
             return startParam ? startParam : "";
         },
         requestAd: async () => {
-
-            const data = await CryptoSteamSDK.requestAd()
-            if(data && data.is_available) {
-                initLaunchAd(data)
-            }
+            await CryptoSteamSDK.requestAd()
+            // if(data && data.is_available) {
+            //     //initLaunchAd(data)
+            // }
         },
     }  as CryptoSteamEmuSDK;
 }

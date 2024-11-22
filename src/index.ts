@@ -28,10 +28,10 @@ async function main() {
 
         // ad
         if (await sdk.isAdEnabled()) {
-            const data = await CryptoSteamSDK.requestAd()
-            if(data && data.is_available) {
-                await initLaunchAd(data)
-            }
+            await CryptoSteamSDK.requestAd()
+            // if(data && data.is_available) {
+            //     await initLaunchAd(data)
+            // }
         }
 
         // load game (unity)
