@@ -1,6 +1,5 @@
 import {getAndInitSDK} from "./sdk";
 import {debug, fatal} from "./utils/logger";
-import {initLaunchAd} from "./sdk/ad";
 import CryptoSteamSDK, {OverlayConfig} from "crypto-steam-sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity} from "./sdk/loadUnity";
@@ -29,9 +28,6 @@ async function main() {
         // ad
         if (await sdk.isAdEnabled()) {
             await CryptoSteamSDK.requestAd()
-            // if(data && data.is_available) {
-            //     await initLaunchAd(data)
-            // }
         }
 
         // load game (unity)
@@ -44,6 +40,7 @@ async function main() {
         {
             initOrientationCheck()
         }
+
     }
     catch(ex) {
         fatal(ex)

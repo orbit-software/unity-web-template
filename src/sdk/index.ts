@@ -1,6 +1,6 @@
 ﻿import CryptoSteamSDK, {TelegramWebApp} from 'crypto-steam-sdk';
 import {info} from "../utils/logger";
-import {initLaunchAd, isAdActive} from "./ad";
+import {isAdActive} from "./ad";
 
 export function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)
@@ -13,16 +13,14 @@ export function getAndInitSDK() {
 
 export function initEmuSDK() {
     return (window as any).CryptoSteamEmuSDK = {
-        isAdRunning: () => {return isAdActive() },
+        isAdRunning: () =>{return false; },
+        reloadAd: () => { (window as any).TMANetwork.reloadAd() },
         getStartParam: () => {
             const startParam = TelegramWebApp.initDataUnsafe.start_param
             return startParam ? startParam : "";
         },
         requestAd: async () => {
             await CryptoSteamSDK.requestAd()
-            // if(data && data.is_available) {
-            //     //initLaunchAd(data)
-            // }
         },
     }  as CryptoSteamEmuSDK;
 }
@@ -30,4 +28,5 @@ export function initEmuSDK() {
 
 export interface CryptoSteamEmuSDK {
     isAdRunning: () => boolean
+    reloadAd: () => void
 }
