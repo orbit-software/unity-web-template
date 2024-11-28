@@ -7,7 +7,7 @@
     "build": "webpack"
   },
   "dependencies": {
-    "crypto-steam-sdk": "^1.0.40"
+    "crypto-steam-sdk": "^1.0.41"
   },
   "devDependencies": {
     "ts-loader": "^9.5.1",
