@@ -1,6 +1,5 @@
 ﻿import CryptoSteamSDK, {TelegramWebApp} from 'crypto-steam-sdk';
 import {info} from "../utils/logger";
-import {isAdActive} from "./ad";
 
 export function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)

@@ -36,7 +36,7 @@ async function main() {
             }
         }
 
-        // load game (unity)
+        // load game
         await loadUnity()
 
         const config = await sdk.getConfig()
