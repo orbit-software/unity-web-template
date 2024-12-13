@@ -25,6 +25,7 @@ async function main() {
             onOverlayClose: () => { debug("overlay close") }
         } as OverlayConfig)
 
+
         // ad
         if (await sdk.isAdEnabled()) {
 

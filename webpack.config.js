@@ -1,8 +1,9 @@
 ﻿const path = require('path');
+const webpack = require("webpack");
 
 module.exports = {
     entry: './src/index.ts',
-    mode: process.env.NODE_ENV || 'production',
+    mode: 'production',
     module: {
         rules: [
             {
@@ -12,8 +13,20 @@ module.exports = {
             },
         ],
     },
+    plugins: [
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+        }),
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(process.env)
+        })
+    ],
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        fallback: {
+            "util": require.resolve("util/"),
+            "process/browser": require.resolve("process/browser")
+        },
+        extensions: ['.tsx', '.ts', '.js', '.jsx'],
     },
     output: {
         filename: 'bundle.js',
