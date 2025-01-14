@@ -1,6 +1,6 @@
 import {getAndInitSDK} from "./sdk";
 import {debug, error, fatal} from "./utils/logger";
-import CryptoSteamSDK, {OverlayConfig} from "crypto-steam-sdk";
+import CryptoSteamSDK, {OverlayConfig, TelegramWebApp} from "crypto-steam-sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity} from "./sdk/loadUnity";
 
@@ -11,7 +11,7 @@ async function main() {
         initMobileMeta()
 
         // init sdk
-        const sdk = getAndInitSDK()
+        const sdk = await getAndInitSDK()
 
         // log configs
         debug(`version ${sdk.getVersion()}`)
@@ -42,10 +42,15 @@ async function main() {
 
         const config = await sdk.getConfig()
 
-        // orientation
-        if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
-        {
-            initOrientationCheck()
+        // // orientation
+        // if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
+        // {
+        //     initOrientationCheck()
+        // }
+
+        // lock orientation
+        if(config.supported_screen_formats.length === 1) {
+            TelegramWebApp.lockOrientation()
         }
 
     }

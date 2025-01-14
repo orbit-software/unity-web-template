@@ -1,11 +1,16 @@
 ﻿import CryptoSteamSDK, {TelegramWebApp} from 'crypto-steam-sdk';
 import {info} from "../utils/logger";
 
-export function getAndInitSDK() {
+export async function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)
 
+
     initEmuSDK();
-    CryptoSteamSDK.initialize();
+    await CryptoSteamSDK.initialize();
+
+    TelegramWebApp.requestFullscreen()
+    TelegramWebApp.setHeaderColor("#000")
+    TelegramWebApp.setBackgroundColor("#000")
 
     return CryptoSteamSDK
 }
