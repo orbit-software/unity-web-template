@@ -8,10 +8,6 @@ export async function getAndInitSDK() {
     initEmuSDK();
     await CryptoSteamSDK.initialize();
 
-    TelegramWebApp.requestFullscreen()
-    TelegramWebApp.setHeaderColor("#000")
-    TelegramWebApp.setBackgroundColor("#000")
-
     return CryptoSteamSDK
 }
 

@@ -42,15 +42,16 @@ async function main() {
 
         const config = await sdk.getConfig()
 
-        // // orientation
-        // if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
-        // {
-        //     initOrientationCheck()
-        // }
+        // orientation
+        if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
+        {
+            initOrientationCheck()
+        }
 
-        // lock orientation
-        if(config.supported_screen_formats.length === 1) {
-            TelegramWebApp.lockOrientation()
+        if(config.supported_screen_formats.includes('fullscreen')) {
+            TelegramWebApp.requestFullscreen()
+            TelegramWebApp.setHeaderColor("#000")
+            TelegramWebApp.setBackgroundColor("#000")
         }
 
     }
