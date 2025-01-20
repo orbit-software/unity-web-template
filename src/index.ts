@@ -3,6 +3,7 @@ import {debug, error, fatal} from "./utils/logger";
 import CryptoSteamSDK, {OverlayConfig, TelegramWebApp} from "crypto-steam-sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity} from "./sdk/loadUnity";
+import {isMobile} from 'react-device-detect';
 
 async function main() {
     try {
@@ -25,6 +26,14 @@ async function main() {
             onOverlayClose: () => { debug("overlay close") }
         } as OverlayConfig)
 
+        const config = await sdk.getConfig()
+
+        // start fullscreen
+        if(isMobile && config.supported_screen_formats.includes('fullscreen')) {
+            TelegramWebApp.setHeaderColor("#000")
+            TelegramWebApp.setBackgroundColor("#000")
+            TelegramWebApp.requestFullscreen()
+        }
 
         // ad
         if (await sdk.isAdEnabled()) {
@@ -37,10 +46,6 @@ async function main() {
             }
         }
 
-        // load game
-        await loadUnity()
-
-        const config = await sdk.getConfig()
 
         // orientation
         if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
@@ -48,11 +53,8 @@ async function main() {
             initOrientationCheck()
         }
 
-        if(config.supported_screen_formats.includes('fullscreen')) {
-            TelegramWebApp.requestFullscreen()
-            TelegramWebApp.setHeaderColor("#000")
-            TelegramWebApp.setBackgroundColor("#000")
-        }
+        // load game
+        await loadUnity()
 
     }
     catch(ex) {

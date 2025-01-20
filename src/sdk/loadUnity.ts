@@ -17,10 +17,10 @@ export function loadUnity() : Promise<void> {
 
         const unity = (window as any) as UnityScripts
 
-        const container = document.querySelector("#unity-container") as HTMLElement;
-        const canvas = document.querySelector("#unity-canvas") as HTMLCanvasElement;
-        const loadingBar = document.querySelector("#unity-loading-bar") as HTMLElement;
-        const progressBarFull = document.querySelector("#unity-progress-bar-full") as HTMLElement;
+        const container = document.querySelector("#cs-unity-container") as HTMLElement;
+        const canvas = document.querySelector("#cs-unity-canvas") as HTMLCanvasElement;
+        const loadingBar = document.querySelector("#cs-unity-loading-bar") as HTMLElement;
+        const progressBarFull = document.querySelector("#cs-unity-progress-bar-full") as HTMLElement;
 
         loadingBar.style.display = "block";
 

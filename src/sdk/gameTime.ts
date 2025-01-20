@@ -7,6 +7,8 @@ const trackTimeEveryS = 20; // 20 seconds
 export function startGameTimeTrack() {
     if (timer) clearInterval(timer);
 
+    CryptoSteamSDK.trackGameTimeTick()
+
     timer = setInterval(() => {
         CryptoSteamSDK.trackGameTimeTick()
     }, trackTimeEveryS * 1000)
