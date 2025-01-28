@@ -4,8 +4,8 @@ import {info} from "../utils/logger";
 export async function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)
 
-
     initEmuSDK();
+
     await CryptoSteamSDK.initialize();
 
     return CryptoSteamSDK

@@ -8,6 +8,13 @@ import {isMobile} from 'react-device-detect';
 async function main() {
     try {
 
+        // start fullscreen
+        if(isMobile) {
+            TelegramWebApp.setHeaderColor("#000")
+            TelegramWebApp.setBackgroundColor("#000")
+            TelegramWebApp.requestFullscreen()
+        }
+
         // init base
         initMobileMeta()
 
@@ -27,13 +34,6 @@ async function main() {
         } as OverlayConfig)
 
         const config = await sdk.getConfig()
-
-        // start fullscreen
-        if(isMobile || config.supported_screen_formats.includes('fullscreen')) {
-            TelegramWebApp.setHeaderColor("#000")
-            TelegramWebApp.setBackgroundColor("#000")
-            TelegramWebApp.requestFullscreen()
-        }
 
         // ad
         if (await sdk.isAdEnabled()) {
