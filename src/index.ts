@@ -29,7 +29,7 @@ async function main() {
         const config = await sdk.getConfig()
 
         // start fullscreen
-        if(isMobile && config.supported_screen_formats.includes('fullscreen')) {
+        if(isMobile || config.supported_screen_formats.includes('fullscreen')) {
             TelegramWebApp.setHeaderColor("#000")
             TelegramWebApp.setBackgroundColor("#000")
             TelegramWebApp.requestFullscreen()
