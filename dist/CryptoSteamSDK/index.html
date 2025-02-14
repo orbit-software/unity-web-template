@@ -24,6 +24,11 @@
 
     <script>
 
+      window.startupConfig = {
+        isFullscreen: true,
+        overlayPosition: 'topLeft' // "topLeft" | "topRight" | "bottomLeft" | "bottomRight"
+      }
+      
       const buildUrl = "Build";
       const loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
 

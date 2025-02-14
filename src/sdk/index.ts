@@ -1,6 +1,9 @@
 ﻿import CryptoSteamSDK, {TelegramWebApp} from 'crypto-steam-sdk';
 import {info} from "../utils/logger";
 
+export function getStartupConfig() {
+    return (window as any).startupConfig as StartupConfig
+}
 export async function getAndInitSDK() {
     info(`start 'CryptoSteamSDK'`)
 
@@ -29,4 +32,9 @@ export function initEmuSDK() {
 export interface CryptoSteamEmuSDK {
     isAdRunning: () => boolean
     reloadAd: () => void
+}
+
+export interface StartupConfig {
+    isFullscreen: boolean
+    overlayPosition: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 }

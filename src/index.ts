@@ -1,4 +1,4 @@
-import {getAndInitSDK} from "./sdk";
+import {getAndInitSDK, getStartupConfig} from "./sdk";
 import {debug, error, fatal} from "./utils/logger";
 import CryptoSteamSDK, {OverlayConfig, TelegramWebApp} from "crypto-steam-sdk";
 import {initOrientationCheck} from "./sdk/orient";
@@ -9,7 +9,7 @@ async function main() {
     try {
 
         // start fullscreen
-        if(isMobile) {
+        if(isMobile && getStartupConfig().isFullscreen) {
             TelegramWebApp.setHeaderColor("#000")
             TelegramWebApp.setBackgroundColor("#000")
             TelegramWebApp.requestFullscreen()
@@ -30,7 +30,8 @@ async function main() {
         // init sdk visual elements
         sdk.initializeOverlay({
             onOverlayOpen: () => { debug("overlay open") },
-            onOverlayClose: () => { debug("overlay close") }
+            onOverlayClose: () => { debug("overlay close") },
+            initialPosition: getStartupConfig().overlayPosition
         } as OverlayConfig)
 
         const config = await sdk.getConfig()
