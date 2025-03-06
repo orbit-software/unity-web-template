@@ -1,5 +1,6 @@
 ﻿import {fatal, info} from "../utils/logger";
 import {startGameTimeTrack, stopGameTimeTrack} from "./gameTime";
+import {startSaveTick, stopSaveTick} from "./syncStorage";
 
 export function initMobileMeta() {
     info("init mobile meta tag")
@@ -24,6 +25,8 @@ export function loadUnity() : Promise<void> {
 
         loadingBar.style.display = "block";
 
+        startSaveTick()
+
         const script = document.createElement("script");
         script.src = unity.unityConfig.loaderUrl;
         script.onload = () => {
@@ -36,6 +39,7 @@ export function loadUnity() : Promise<void> {
                     loadingBar.style.display = "none";
                 }).catch((message) => {
                     stopGameTimeTrack()
+                    stopSaveTick()
                     fatal(message);
                     reject()
                 });
@@ -44,8 +48,6 @@ export function loadUnity() : Promise<void> {
 
     }));
 }
-
-
 
 interface UnityConfig {
     arguments: any[];

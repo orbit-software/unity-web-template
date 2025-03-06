@@ -1,5 +1,6 @@
 ﻿import CryptoSteamSDK, {TelegramWebApp} from 'crypto-steam-sdk';
 import {info} from "../utils/logger";
+import {getValueSync, setValueSync} from "./syncStorage";
 
 export function getStartupConfig() {
     return (window as any).startupConfig as StartupConfig
@@ -15,8 +16,15 @@ export async function getAndInitSDK() {
 }
 
 export function initEmuSDK() {
+
     return (window as any).CryptoSteamEmuSDK = {
         isAdRunning: () =>{return false; },
+        getValueSync: (key: string) => {
+            return getValueSync(key)
+        },
+        setValueSync: (key: string, value: string) => {
+            setValueSync(key, value);
+        },
         reloadAd: () => { (window as any).TMANetwork.reloadAd() },
         getStartParam: () => {
             const startParam = TelegramWebApp.initDataUnsafe.start_param
