@@ -13,6 +13,12 @@ export function setValueSync(key: string, value: any) {
     state[key] = pending[key] = value;
 }
 
+export function removeValueSync(key: string) {
+    delete state[key]
+    delete pending[key]
+    CryptoSteamSDK.removeValue(key)
+}
+
 export function getValueSync(key: string) {
     return state[key]
 }
