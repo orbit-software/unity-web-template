@@ -2,7 +2,7 @@ import {getAndInitSDK, getStartupConfig} from "./sdk";
 import {debug, error, fatal} from "./utils/logger";
 import CryptoSteamSDK, {OverlayConfig, TelegramWebApp} from "crypto-steam-sdk";
 import {initOrientationCheck} from "./sdk/orient";
-import {initMobileMeta, loadUnity} from "./sdk/loadUnity";
+import {initMobileMeta, loadUnity, UnityScripts} from "./sdk/loadUnity";
 import {isMobile} from 'react-device-detect';
 
 async function main() {
@@ -31,7 +31,7 @@ async function main() {
         sdk.initializeOverlay({
             onOverlayOpen: () => { debug("overlay open") },
             onOverlayClose: () => { debug("overlay close") },
-            initialPosition: getStartupConfig().overlayPosition
+            initialPosition: getStartupConfig()?.overlayPosition ?? 'topLeft'
         } as OverlayConfig)
 
         const config = await sdk.getConfig()
@@ -54,8 +54,17 @@ async function main() {
             initOrientationCheck()
         }
 
-        // load game
-        await loadUnity()
+        // load unity
+        const unity = (window as any) as UnityScripts
+        if(unity && unity.unityConfig) {
+            await loadUnity()
+        }
+
+        // or run other game engine
+        if((window as any).runGame) {
+            (window as any).runGame();
+        }
+
 
     }
     catch(ex) {

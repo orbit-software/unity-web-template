@@ -1,6 +1,7 @@
 ﻿import {fatal, info} from "../utils/logger";
 import {startGameTimeTrack, stopGameTimeTrack} from "./gameTime";
 import {startSaveTick, stopSaveTick} from "./syncStorage";
+import CryptoSteamSDK from "crypto-steam-sdk";
 
 export function initMobileMeta() {
     info("init mobile meta tag")
@@ -34,6 +35,8 @@ export function loadUnity() : Promise<void> {
             unity.createUnityInstance(canvas, (window as any).unityConfig,
                 (progress:number) => progressBarFull.style.width = 100 * progress + "%")
                 .then((unityInstance) => {
+                    info('!!! UnityInstance loaded');
+                    CryptoSteamSDK.gameReady()
                     startGameTimeTrack()
                     resolve()
                     loadingBar.style.display = "none";
@@ -67,7 +70,7 @@ interface UnityInstance {
 
 }
 
-interface UnityScripts {
+export interface UnityScripts {
     createUnityInstance: (canvas: HTMLCanvasElement, config: UnityConfig, onProgress: (progress:number) => void ) => Promise<UnityInstance>;
     unityConfig: UnityConfig
 }
