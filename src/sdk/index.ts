@@ -6,7 +6,7 @@ export function getStartupConfig() {
     return (window as any).startupConfig as StartupConfig
 }
 export async function getAndInitSDK() {
-    info(`start 'CryptoSteamSDK'`)
+    info(`start 'PortalSDK'`)
 
     initEmuSDK();
 
