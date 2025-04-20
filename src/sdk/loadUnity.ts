@@ -26,8 +26,6 @@ export function loadUnity() : Promise<void> {
 
         loadingBar.style.display = "block";
 
-        startSaveTick()
-
         const script = document.createElement("script");
         script.src = unity.unityConfig.loaderUrl;
         script.onload = () => {

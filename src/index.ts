@@ -4,6 +4,7 @@ import CryptoSteamSDK, {OverlayConfig, TelegramWebApp} from "crypto-steam-sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity, UnityScripts} from "./sdk/loadUnity";
 import {isMobile} from 'react-device-detect';
+import {startSaveTick} from "./sdk/syncStorage";
 
 async function main() {
     try {
@@ -53,6 +54,8 @@ async function main() {
         {
             initOrientationCheck()
         }
+
+        startSaveTick()
 
         // load unity
         const unity = (window as any) as UnityScripts

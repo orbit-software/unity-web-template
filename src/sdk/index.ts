@@ -17,7 +17,7 @@ export async function getAndInitSDK() {
 
 export function initEmuSDK() {
 
-    return (window as any).CryptoSteamEmuSDK = {
+    return (window as any).PortalEmuSDK = {
         isAdRunning: () =>{return false; },
         getValueSync: (key: string) => {
             return getValueSync(key)
@@ -36,11 +36,11 @@ export function initEmuSDK() {
         requestAd: async () => {
             await CryptoSteamSDK.requestAd()
         },
-    }  as CryptoSteamEmuSDK;
+    }  as PortalEmuSDK;
 }
 
 
-export interface CryptoSteamEmuSDK {
+export interface PortalEmuSDK {
     isAdRunning: () => boolean
     reloadAd: () => void
 }
