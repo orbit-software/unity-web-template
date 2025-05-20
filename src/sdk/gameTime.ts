@@ -1,4 +1,4 @@
-﻿import CryptoSteamSDK from "crypto-steam-sdk";
+﻿import {PortalSDK} from "@orbit-software/sdk";
 
 let timer: any
 
@@ -7,10 +7,10 @@ const trackTimeEveryS = 20; // 20 seconds
 export function startGameTimeTrack() {
     if (timer) clearInterval(timer);
 
-    CryptoSteamSDK.trackGameTimeTick()
+    PortalSDK.trackGameTimeTick()
 
     timer = setInterval(() => {
-        CryptoSteamSDK.trackGameTimeTick()
+        PortalSDK.trackGameTimeTick()
     }, trackTimeEveryS * 1000)
 }
 

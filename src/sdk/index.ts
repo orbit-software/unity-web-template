@@ -1,4 +1,4 @@
-﻿import CryptoSteamSDK, {TelegramWebApp} from 'crypto-steam-sdk';
+﻿import {PortalSDK} from '@orbit-software/sdk';
 import {info} from "../utils/logger";
 import {getValueSync, removeValueSync, setValueSync} from "./syncStorage";
 
@@ -10,9 +10,9 @@ export async function getAndInitSDK() {
 
     initEmuSDK();
 
-    await CryptoSteamSDK.initialize();
+    await PortalSDK.initialize();
 
-    return CryptoSteamSDK
+    return PortalSDK
 }
 
 export function initEmuSDK() {
@@ -30,11 +30,12 @@ export function initEmuSDK() {
         },
         reloadAd: () => { (window as any).TMANetwork.reloadAd() },
         getStartParam: () => {
-            const startParam = TelegramWebApp.initDataUnsafe.start_param
+            // @ts-ignore
+            const startParam = window.Telegram.WebApp.initDataUnsafe.start_param
             return startParam ? startParam : "";
         },
         requestAd: async () => {
-            await CryptoSteamSDK.requestAd()
+            await PortalSDK.requestAd()
         },
     }  as PortalEmuSDK;
 }

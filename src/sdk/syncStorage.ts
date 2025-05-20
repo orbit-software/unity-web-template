@@ -1,5 +1,5 @@
-﻿import CryptoSteamSDK from "crypto-steam-sdk";
-import {log} from "../utils/logger";
+﻿import {log} from "../utils/logger";
+import {PortalSDK} from "@orbit-software/sdk";
 
 let timer: any
 let pending = {} as Record<string, string>
@@ -16,7 +16,7 @@ export function setValueSync(key: string, value: any) {
 export function removeValueSync(key: string) {
     delete state[key]
     delete pending[key]
-    CryptoSteamSDK.removeValue(key)
+    PortalSDK.removeValue(key)
 }
 
 export function getValueSync(key: string) {
@@ -24,7 +24,7 @@ export function getValueSync(key: string) {
 }
 
 async function loadAll() {
-    state = await CryptoSteamSDK.getAllKeyValues()
+    state = await PortalSDK.getAllKeyValues()
 }
 
 
@@ -51,7 +51,7 @@ async function savePendingChanges() {
 
     for (const key of Object.keys(pendingToSave)) {
 
-        await CryptoSteamSDK.setValue(key, pendingToSave[key])
+        await PortalSDK.setValue(key, pendingToSave[key])
         delete pending[key]
     }
 }

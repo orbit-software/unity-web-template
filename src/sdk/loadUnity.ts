@@ -1,7 +1,7 @@
 ﻿import {fatal, info} from "../utils/logger";
 import {startGameTimeTrack, stopGameTimeTrack} from "./gameTime";
-import {startSaveTick, stopSaveTick} from "./syncStorage";
-import CryptoSteamSDK from "crypto-steam-sdk";
+import {stopSaveTick} from "./syncStorage";
+import {PortalSDK} from "@orbit-software/sdk";
 
 export function initMobileMeta() {
     info("init mobile meta tag")
@@ -34,7 +34,7 @@ export function loadUnity() : Promise<void> {
                 (progress:number) => progressBarFull.style.width = 100 * progress + "%")
                 .then((unityInstance) => {
                     info('!!! UnityInstance loaded');
-                    CryptoSteamSDK.gameReady()
+                    PortalSDK.gameReady()
                     startGameTimeTrack()
                     resolve()
                     loadingBar.style.display = "none";

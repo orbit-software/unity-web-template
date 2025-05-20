@@ -1,6 +1,6 @@
 import {getAndInitSDK, getStartupConfig} from "./sdk";
 import {debug, error, fatal} from "./utils/logger";
-import CryptoSteamSDK, {OverlayConfig, TelegramWebApp} from "crypto-steam-sdk";
+import {PortalSDK, OverlayConfig, TelegramWebApp} from "@orbit-software/sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity, UnityScripts} from "./sdk/loadUnity";
 import {isMobile} from 'react-device-detect';
@@ -25,7 +25,6 @@ async function main() {
         // log configs
         debug(`version ${sdk.getVersion()}`)
         debug('config:\n' + JSON.stringify(await sdk.getConfig(), null, 4))
-        debug(`profile:\n ${JSON.stringify(await sdk.getProfile(), null, 4)}`);
         debug(`isAdEnabled: ${await sdk.isAdEnabled()}`)
 
         // init sdk visual elements
@@ -41,13 +40,12 @@ async function main() {
         if (await sdk.isAdEnabled()) {
 
             try {
-                await CryptoSteamSDK.requestAd()
+                await PortalSDK.requestAd()
             }
             catch(ex) {
                 error(ex)
             }
         }
-
 
         // orientation
         if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
