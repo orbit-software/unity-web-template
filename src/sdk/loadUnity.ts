@@ -1,7 +1,7 @@
 ﻿import {fatal, info} from "../utils/logger";
-import {startGameTimeTrack, stopGameTimeTrack} from "./gameTime";
 import {stopSaveTick} from "./syncStorage";
 import {PortalSDK} from "@orbit-software/sdk";
+import {stopGameTimeTrack} from "./gameTime";
 
 export function initMobileMeta() {
     info("init mobile meta tag")
@@ -35,7 +35,6 @@ export function loadUnity() : Promise<void> {
                 .then((unityInstance) => {
                     info('!!! UnityInstance loaded');
                     PortalSDK.gameReady()
-                    startGameTimeTrack()
                     resolve()
                     loadingBar.style.display = "none";
                 }).catch((message) => {

@@ -5,6 +5,7 @@ import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity, UnityScripts} from "./sdk/loadUnity";
 import {isMobile} from 'react-device-detect';
 import {startSaveTick} from "./sdk/syncStorage";
+import {startGameTimeTrack} from "./sdk/gameTime";
 
 async function main() {
     try {
@@ -53,6 +54,7 @@ async function main() {
             initOrientationCheck()
         }
 
+        startGameTimeTrack();
         startSaveTick()
 
         // load unity
