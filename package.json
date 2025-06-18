@@ -7,7 +7,7 @@
     "build": "webpack"
   },
   "dependencies": {
-    "@orbit-software/sdk": "^1.21.0",
+    "@orbit-software/sdk": "^1.22.0",
     "@readyplayerme/visage": "^6.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
