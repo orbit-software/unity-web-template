@@ -1,21 +1,13 @@
-import {getAndInitSDK, getStartupConfig} from "./sdk";
+import {getAndInitSDK} from "./sdk";
 import {debug, error, fatal} from "./utils/logger";
-import {PortalSDK, OverlayConfig, TelegramWebApp} from "@orbit-software/sdk";
+import {PortalSDK} from "@orbit-software/sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity, UnityScripts} from "./sdk/loadUnity";
-import {isMobile} from 'react-device-detect';
 import {startSaveTick} from "./sdk/syncStorage";
 import {startGameTimeTrack} from "./sdk/gameTime";
 
 async function main() {
     try {
-
-        // start fullscreen
-        if(isMobile && getStartupConfig().isFullscreen) {
-            TelegramWebApp.setHeaderColor("#000")
-            TelegramWebApp.setBackgroundColor("#000")
-            TelegramWebApp.requestFullscreen()
-        }
 
         // init base
         initMobileMeta()
@@ -29,11 +21,7 @@ async function main() {
         debug(`isAdEnabled: ${await sdk.isAdEnabled()}`)
 
         // init sdk visual elements
-        sdk.initializeOverlay({
-            onOverlayOpen: () => { debug("overlay open") },
-            onOverlayClose: () => { debug("overlay close") },
-            initialPosition: getStartupConfig()?.overlayPosition ?? 'topLeft'
-        } as OverlayConfig)
+        sdk.initializeOverlay()
 
         const config = await sdk.getConfig()
 

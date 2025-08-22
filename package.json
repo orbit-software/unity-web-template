@@ -7,11 +7,9 @@
     "build": "webpack"
   },
   "dependencies": {
-    "@orbit-software/sdk": "^1.60.0",
-    "@readyplayerme/visage": "^6.4.6",
+    "@orbit-software/sdk": "^1.61.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-device-detect": "^2.2.3"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "ts-loader": "^9.5.1",
