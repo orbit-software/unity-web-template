@@ -2,9 +2,6 @@
 import {info} from "../utils/logger";
 import {getValueSync, removeValueSync, setValueSync} from "./syncStorage";
 
-export function getStartupConfig() {
-    return (window as any).startupConfig as StartupConfig
-}
 export async function getAndInitSDK() {
     info(`start 'PortalSDK'`)
 
@@ -44,9 +41,4 @@ export function initEmuSDK() {
 export interface PortalEmuSDK {
     isAdRunning: () => boolean
     reloadAd: () => void
-}
-
-export interface StartupConfig {
-    isFullscreen: boolean
-    overlayPosition: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 }

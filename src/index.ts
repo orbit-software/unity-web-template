@@ -4,7 +4,6 @@ import {PortalSDK} from "@orbit-software/sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity, UnityScripts} from "./sdk/loadUnity";
 import {startSaveTick} from "./sdk/syncStorage";
-import {startGameTimeTrack} from "./sdk/gameTime";
 
 async function main() {
     try {
@@ -42,7 +41,6 @@ async function main() {
             initOrientationCheck()
         }
 
-        startGameTimeTrack();
         startSaveTick()
 
         // load unity

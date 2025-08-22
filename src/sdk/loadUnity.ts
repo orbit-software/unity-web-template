@@ -1,7 +1,6 @@
 ﻿import {fatal, info} from "../utils/logger";
 import {stopSaveTick} from "./syncStorage";
 import {PortalSDK} from "@orbit-software/sdk";
-import {stopGameTimeTrack} from "./gameTime";
 
 export function initMobileMeta() {
     info("init mobile meta tag")
@@ -38,7 +37,6 @@ export function loadUnity() : Promise<void> {
                     resolve()
                     loadingBar.style.display = "none";
                 }).catch((message) => {
-                    stopGameTimeTrack()
                     stopSaveTick()
                     fatal(message);
                     reject()
