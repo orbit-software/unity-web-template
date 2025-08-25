@@ -1,9 +1,8 @@
-﻿import {fatal, info} from "../utils/logger";
-import {stopSaveTick} from "./syncStorage";
+﻿import {stopSaveTick} from "./syncStorage";
 import {PortalSDK} from "@orbit-software/sdk";
 
 export function initMobileMeta() {
-    info("init mobile meta tag")
+    console.log("init mobile meta tag")
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
         const meta = document.createElement('meta');
@@ -32,13 +31,13 @@ export function loadUnity() : Promise<void> {
             unity.createUnityInstance(canvas, (window as any).unityConfig,
                 (progress:number) => progressBarFull.style.width = 100 * progress + "%")
                 .then((unityInstance) => {
-                    info('!!! UnityInstance loaded');
+                    console.log('!!! UnityInstance loaded');
                     PortalSDK.gameReady()
                     resolve()
                     loadingBar.style.display = "none";
                 }).catch((message) => {
                     stopSaveTick()
-                    fatal(message);
+                    console.error(message);
                     reject()
                 });
         };

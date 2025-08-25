@@ -1,5 +1,4 @@
-﻿import {log} from "../utils/logger";
-import {PortalSDK} from "@orbit-software/sdk";
+﻿import {PortalSDK} from "@orbit-software/sdk";
 
 let timer: any
 let pending = {} as Record<string, string>
@@ -46,7 +45,7 @@ async function savePendingChanges() {
 
     const pendingToSave = {...pending};
 
-    log('save pending changes ' + Object.keys(pendingToSave).length);
+    console.log('save pending changes ' + Object.keys(pendingToSave).length);
     console.log(pending);
 
     for (const key of Object.keys(pendingToSave)) {

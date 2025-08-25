@@ -1,10 +1,7 @@
 ﻿import {PortalSDK} from '@orbit-software/sdk';
-import {info} from "../utils/logger";
 import {getValueSync, removeValueSync, setValueSync} from "./syncStorage";
 
 export async function getAndInitSDK() {
-    info(`start 'PortalSDK'`)
-
     initEmuSDK();
 
     await PortalSDK.initialize();
@@ -15,23 +12,30 @@ export async function getAndInitSDK() {
 export function initEmuSDK() {
 
     return (window as any).PortalEmuSDK = {
-        isAdRunning: () =>{return false; },
+        isAdRunning: () =>{ /* obsolete */ return false; },
+
         getValueSync: (key: string) => {
             return getValueSync(key)
         },
+
         setValueSync: (key: string, value: string) => {
             setValueSync(key, value);
         },
+
         removeValueSync: async (key: string) => {
             removeValueSync(key)
         },
-        reloadAd: () => { (window as any).TMANetwork.reloadAd() },
+
+        reloadAd: () => { /* obsolete */ },
+
         getStartParam: () => {
             // @ts-ignore
             const startParam = window.Telegram.WebApp.initDataUnsafe.start_param
             return startParam ? startParam : "";
         },
+
         requestAd: async () => {
+            /* obsolete */
             await PortalSDK.requestAd()
         },
     }  as PortalEmuSDK;

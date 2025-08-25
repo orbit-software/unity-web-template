@@ -1,9 +1,7 @@
-﻿import {info} from "../utils/logger";
-
-let orientTimer: any
+﻿let orientTimer: any
 
 export function initOrientationCheck() {
-    info("init orientation check")
+    console.log("init orientation check")
     checkOrientation();
     window.addEventListener("orientationchange", checkOrientation);
     window.addEventListener("load", checkOrientation)

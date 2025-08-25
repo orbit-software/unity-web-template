@@ -1,5 +1,4 @@
 import {getAndInitSDK} from "./sdk";
-import {debug, error, fatal} from "./utils/logger";
 import {PortalSDK} from "@orbit-software/sdk";
 import {initOrientationCheck} from "./sdk/orient";
 import {initMobileMeta, loadUnity, UnityScripts} from "./sdk/loadUnity";
@@ -14,11 +13,6 @@ async function main() {
         // init sdk
         const sdk = await getAndInitSDK()
 
-        // log configs
-        debug(`version ${sdk.getVersion()}`)
-        debug('config:\n' + JSON.stringify(await sdk.getConfig(), null, 4))
-        debug(`isAdEnabled: ${await sdk.isAdEnabled()}`)
-
         // init sdk visual elements
         sdk.initializeOverlay()
 
@@ -31,12 +25,13 @@ async function main() {
                 await PortalSDK.requestAd()
             }
             catch(ex) {
-                error(ex)
+                console.error(ex)
             }
         }
 
         // orientation
-        if(config.supported_screen_formats.includes('landscape') && !config.supported_screen_formats.includes('portrait'))
+        if(config.supported_screen_formats.includes('landscape') &&
+            !config.supported_screen_formats.includes('portrait'))
         {
             initOrientationCheck()
         }
@@ -57,7 +52,7 @@ async function main() {
 
     }
     catch(ex) {
-        fatal(ex)
+        console.error(ex)
     }
 }
 
